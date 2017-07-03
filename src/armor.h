@@ -4,16 +4,17 @@
 #include <string>
 using namespace std;
 class Armor {
-	private:
-		int armor_str;
-		int armor_wgt;
+	protected:
+		unsigned int strength;
+		unsigned int weight;
 	public:
-		Armor(int,int);
+		Armor();
+		Armor(unsigned int, unsigned int);
 		~Armor();
-		virtual int get_armorStr();
-		virtual int get_armorWgt();
-		virtual void set_armorStr(int);
-		virtual void set_armorWgt(int);
+		virtual unsigned int get_armorStr();
+		virtual unsigned int get_armorWgt();
+		virtual void set_armorStr(unsigned int);
+		virtual void set_armorWgt(unsigned int);
 };
 #endif
 

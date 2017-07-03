@@ -9,7 +9,7 @@ BINARY := Game.out
 .PHONY: clean
 
 p1:
-	$(CC) $(LFLAGS) $(CFLAGS) $(SOURCES) -o $(BINARY)
+	$(CC) $(CFLAGS) $(SOURCES) -o $(BINARY)
 
 p2:
 	$(CC) $(LFLAGS) $(CFLAGS) $(SOURCES) $(DEBUG) -o $(BINARY)

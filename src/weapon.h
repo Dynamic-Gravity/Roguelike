@@ -3,6 +3,17 @@
 #include <iostream>
 #include <string>
 using namespace std;
-class Weapon {};
-class Sword : virtual Weapon {};
+class Weapon {
+	protected:
+		unsigned int range;
+		unsigned int damage;
+	public:
+		Weapon();
+		Weapon(unsigned int, unsigned int);
+		~Weapon();
+		virtual unsigned int get_range();
+		virtual unsigned int get_damage();
+		virtual void set_range(unsigned int);
+		virtual void set_damage(unsigned int);
+};
 #endif
