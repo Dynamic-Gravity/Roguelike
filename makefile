@@ -1,9 +1,10 @@
 CC := g++
 DEBUG := -g
-CFLAGS := -std=c++11
+CFLAGS := -std=c++14
 LFLAGS := -Wall
 SOURCEDIR := src
 SOURCES := $(shell find $(SOURCEDIR) -name '*.cpp')
+MAZE := $(shell find -name 'maze.txt')
 BINARY := Game.out
 
 .PHONY: clean
@@ -19,7 +20,7 @@ all: p1
 debug: p2
 
 run: all
-	./$(BINARY)
+	./$(BINARY) $(MAZE)
 
 clean:
 	\rm ./$(BINARY)

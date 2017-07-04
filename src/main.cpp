@@ -1,54 +1,73 @@
-#include <iostream>
-#include "armor.h"
-#include "character.h"
-#include "maze.h"
-#include "weapon.h"
+#include <iostream>	//used for every C++ project under the sun
+#include <fstream>	//used to read in files via cli args
+#include <algorithm>	//used for string replace methods
+#include "colormod.h" 	//used for terminal colors
+#include "armor.h"	//used for armor objects
+#include "character.h"	//used for color objects
+#include "weapon.h"	//used for weapon objects
+
+#define NEWLINE '\n';
 
 int main (int argc, char* argv[] ){
 
-	/*
-	cout << "BEGINNING OBJECT TESTING..." << endl;
-	cout << "Creating light armor..." << endl;
-	Armor *lightArmor = new Armor(5,1);
-	cout << "Creating heavy armor..." << endl;
-	Armor *heavyArmor =  new Armor(10,2);
-	cout << "Light armor strength: " << lightArmor->get_armorStr() << endl;
-	cout << "Light armor weight: " << lightArmor->get_armorWgt() << endl;
-	cout << "Heavy armor strength: " << heavyArmor->get_armorStr() << endl;
-        cout << "Heavy armor weight: " << heavyArmor->get_armorWgt() << endl;
-
-	cout << "Creating player character..." << endl;
-	Character *player = new Character();
-	cout << "Character health: " << player->get_health() << endl;
+	//Get contents of file
+	string map, buffer;
 	
-	cout << "Creating weapon sword..." << endl;
-	Weapon *sword = new Weapon(2,50);
-	cout << "Sword range: " << sword->get_range() << endl;
-	cout << "Sword damage: " << sword->get_damage() << endl;
+	ifstream in(argv[1]); //read in map data from args
+		
+	if( in.fail() ){
+		exit(1);
+	} else {
 
-	cout << "Calling objects' deconstructor..." << endl;
-	cout << "deleting light armor...";
-	delete lightArmor;
-	cout << "deleting heavy armor...";
-	delete heavyArmor;
-	cout << "deleting player...";
-	delete player;
-	cout << "deleting sword...";
-	delete sword;
+		while ( in >> buffer ){
+			map += buffer + NEWLINE;
+		}
+	}
 	
-	cout << "TESTING COMPLETE" << endl;
-	*/
+	//colors to use
+        Color::Modifier red(Color::FG_RED);
+        Color::Modifier green(Color::FG_GREEN);
+        Color::Modifier blue(Color::FG_BLUE);
+        Color::Modifier def(Color::FG_DEFAULT);
+	
+	//color specific chars
+	char tile 	= ' ';
+	char wall 	= '#';
+	char player 	= 'P';
+	char exit 	= 'X';
+	char troll	= 'T';
+	
+	
+	/* Replacce text in the map string.
+	 * 0 is a walkable tile.
+	 * 1 is a wall.
+	 * 2 is the starting spawn point.
+	 * 3 is the end goal/objective.
+	 * 4 are enemies (avoid unless you want to die!).
+	 * Solution aquired from stack overflow.
+	 * https://stackoverflow.com/questions/2896600/how-to-replace-all-occurrences-of-a-character-in-string
+	 */
+	replace( map.begin(), map.end(), '0', tile );
+	replace( map.begin(), map.end(), '1', wall );
+	replace( map.begin(), map.end(), '2', player );
+	replace( map.begin(), map.end(), '3', exit );
+	replace( map.begin(), map.end(), '4', troll ); 
+	
+	cout << map;
+
 	//Main game loop
 	register int go = 1;
 	while(go){
 		//draw map
-		Maze *map = new Maze();
+		//printMaze();
+		
 		//get player input
 		unsigned int option = 0;
 		cin >> option;
+		
 		switch(option){
 			case 0 : break; 
-			default : cout << "printing grid..." << endl;
+			default : ;
 		}
 		//update options (like quit)
 		//update player turn
